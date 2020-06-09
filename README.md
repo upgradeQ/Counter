@@ -1,8 +1,9 @@
 # Obscounter
+![prevew](counter.gif)
 Python implementation of hotkey counter in OBS studio.  
-There is [`Lua alternative`](https://gist.github.com/tid-kijyun/477c723ea42d22903ebe6b6cee3f77a1) with helpful blogpost(JP) on how to install and setup those kinds of scripts in OBS.
-# Resources
-* [`python category on obs forums`](https://obsproject.com/forum/resources/categories/scripts.5/?prefix_id=6)
-* [`official docs`](https://obsproject.com/docs/scripting.html)
+# See also
+There is [`Lua alternative`](https://gist.github.com/tid-kijyun/477c723ea42d22903ebe6b6cee3f77a1) with helpful blogpost(JP)
+on how to install and setup those kinds of scripts in OBS.
+Lua support in OBS Studio is built-in , so you don't need install anything extra.
 # Contribute 
 Contributions are welcome
