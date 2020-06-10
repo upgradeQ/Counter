@@ -1,6 +1,10 @@
 import obspython as obs
 
 
+HOTKEY_ID_COUNT_UP = obs.OBS_INVALID_HOTKEY_ID
+HOTKEY_ID_RESET = obs.OBS_INVALID_HOTKEY_ID
+
+
 class TextContent:
     def __init__(self, text_string="This is default text", source_name=None):
         self.source_name = source_name
@@ -24,8 +28,6 @@ class Driver(TextContent):
         self.text_string = text_string
         self.counter_text = "counter text"
         self.source_name = source_name
-        self.hotkey_id_count_up = obs.OBS_INVALID_HOTKEY_ID
-        self.hotkey_id_reset = obs.OBS_INVALID_HOTKEY_ID
         self.counter = 0
 
     def hotkey_up(self):
@@ -57,15 +59,6 @@ def script_update(settings):
     hotkeys_counter.counter_text = obs.obs_data_get_string(settings, "counter_text")
 
 
-def script_save(settings):
-    hotkey_save_array_count_up = obs.obs_hotkey_save(hotkeys_counter.hotkey_id_count_up)
-    hotkey_save_array_reset = obs.obs_hotkey_save(hotkeys_counter.hotkey_id_reset)
-    obs.obs_data_set_array(settings, "count_up_hotkey", hotkey_save_array_count_up)
-    obs.obs_data_set_array(settings, "reset_hotkey", hotkey_save_array_reset)
-    obs.obs_data_array_release(hotkey_save_array_count_up)
-    obs.obs_data_array_release(hotkey_save_array_reset)
-
-
 def script_properties():
     props = obs.obs_properties_create()
 
@@ -94,7 +87,21 @@ def script_properties():
     return props
 
 
+def script_save(settings):
+    global HOTKEY_ID_COUNT_UP
+    global HOTKEY_ID_RESET
+    hotkey_save_array_count_up = obs.obs_hotkey_save(HOTKEY_ID_COUNT_UP)
+    hotkey_save_array_reset = obs.obs_hotkey_save(HOTKEY_ID_RESET)
+    obs.obs_data_set_array(settings, "count_up_hotkey", hotkey_save_array_count_up)
+    obs.obs_data_set_array(settings, "reset_hotkey", hotkey_save_array_reset)
+    obs.obs_data_array_release(hotkey_save_array_count_up)
+    obs.obs_data_array_release(hotkey_save_array_reset)
+
+
 def script_load(settings):
+    global HOTKEY_ID_COUNT_UP
+    global HOTKEY_ID_RESET
+
     def callback_up(pressed):
         if pressed:
             return hotkeys_counter.hotkey_up()
@@ -103,15 +110,15 @@ def script_load(settings):
         if pressed:
             return hotkeys_counter.hotkey_reset()
 
-    hotkey_id_count_up = obs.obs_hotkey_register_frontend(
+    HOTKEY_ID_COUNT_UP = obs.obs_hotkey_register_frontend(
         "counter up !", "Count up ", callback_up
     )
-    hotkey_id_reset = obs.obs_hotkey_register_frontend(
+    HOTKEY_ID_RESET = obs.obs_hotkey_register_frontend(
         "reset !", "Reset ", callback_reset
     )
     hotkey_save_array_count_up = obs.obs_data_get_array(settings, "count_up_hotkey")
     hotkey_save_array_reset = obs.obs_data_get_array(settings, "reset_hotkey")
-    obs.obs_hotkey_load(hotkey_id_count_up, hotkey_save_array_count_up)
-    obs.obs_hotkey_load(hotkey_id_reset, hotkey_save_array_reset)
+    obs.obs_hotkey_load(HOTKEY_ID_COUNT_UP, hotkey_save_array_count_up)
+    obs.obs_hotkey_load(HOTKEY_ID_RESET, hotkey_save_array_reset)
     obs.obs_data_array_release(hotkey_save_array_count_up)
     obs.obs_data_array_release(hotkey_save_array_reset)
