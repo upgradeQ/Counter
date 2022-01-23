@@ -11,7 +11,7 @@ For windows install [python3.6](https://www.python.org/downloads/release/python-
 - Add and select this script
 - Set settings for it
 - Set hotkeys in `File>Settings`
-If you need additional COUNTERS , copy paste `scripted_text.py` , and add it again
+If you need additional COUNTERS , copy paste `hotkey_counter.py` , and add it again
 # See also
 There is [`Lua alternative`](https://gist.github.com/tid-kijyun/477c723ea42d22903ebe6b6cee3f77a1) with helpful blogpost(JP)
 on how to install and setup those kinds of scripts in OBS.
