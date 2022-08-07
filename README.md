@@ -3,6 +3,9 @@ Python implementation of hotkey counter in OBS studio.
 - ![prevew](counter.gif)
 - ![ui](https://i.imgur.com/UobLYdS.png)
 - ![hotkeys](https://i.imgur.com/dEC2Y6M.png)
+# Installation 
+- Download [source code](https://github.com/upgradeQ/Obscounter/archive/master.zip), unpack/unzip.
+- Add `hotkey_counter.py` to OBS Studio via Tools > Scripts > "+" button
 # Setup
 For windows install [python3.6](https://www.python.org/downloads/release/python-368/) 64 or 32 bit depending on your OBS 
 - Create text source
