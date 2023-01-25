@@ -1,12 +1,12 @@
 # Obscounter
 
-Python implementation of hotkey counter in OBS studio.
+Python implementation of hotkey counter in OBS Studio.
 
 ![prevew](counter.gif)
 
 # Requirements
 
-For windows install [python3.6](https://www.python.org/downloads/release/python-368/) 64 or 32 bit depending on your OBS 
+For Windows install [python3.6](https://www.python.org/downloads/release/python-368/) 64 or 32 bit depending on your OBS. Since 28 version supports any 3.x python versions
 
 # Installation 
 
@@ -43,13 +43,10 @@ For windows install [python3.6](https://www.python.org/downloads/release/python-
 
 If you need additional counters, duplicate the `hotkey_counter.py` file and save it with a new filename (e.g. `hotkey_counter2.py`), and repeat the process.
 
-# Potential issues
-
-OBS sometimes does not want to play nicely with Python, and [sometimes requires a specific Python version e.g. 3.6.4](https://obsproject.com/forum/threads/cant-seem-to-get-the-obs-python-library-to-work-correctly-help-pls.101339/). 
 
 # Alternatives
 
-There is a [`LUA alternative`](https://gist.github.com/tid-kijyun/477c723ea42d22903ebe6b6cee3f77a1) with helpful blogpost (JP)
+There is a [`Lua alternative`](https://gist.github.com/tid-kijyun/477c723ea42d22903ebe6b6cee3f77a1) with helpful blogpost (JP)
 on how to install and setup those kinds of scripts in OBS. Lua support in OBS Studio is built-in , so you don't need install anything extra.
 
 # Contribute 
