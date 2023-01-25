@@ -6,7 +6,7 @@ Python implementation of hotkey counter in OBS Studio.
 
 # Requirements
 
-For Windows install [python3.6](https://www.python.org/downloads/release/python-368/) 64 or 32 bit depending on your OBS. Since 28 version supports any 3.x python versions
+For Windows install [python3.6](https://www.python.org/downloads/release/python-368/) 64 or 32 bit depending on your OBS. Since 28 version OBS Studio supports most 3.x Python versions.
 
 # Installation 
 
