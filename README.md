@@ -16,6 +16,8 @@ For Windows install [python3.6](https://www.python.org/downloads/release/python-
 # Usage
 
 1. On OBS, under Sources, click + to create a new text source (below, you will see Text GDI+). You may leave it blank.
+> [!NOTE]
+> You can also use FreeType2 (which is hidden in Depricated) as it's more efficient
 
 ![image](https://user-images.githubusercontent.com/2420577/214267000-44e091a0-eadb-43a2-ac68-d8763b172320.png)
 
