@@ -1,15 +1,16 @@
 import obspython as S
 
-__version__ = "1.1.0"
+__version__ = "1.2.0"
 
 
 class TextContent:
-    def __init__(self, source_name=None, text_string="This is default text"):
+    def __init__(self, source_name=None, text_string="This is default text", suffix=""):
         self.source_name = source_name
-        self.text_string = text_string
+        self.counter_text = text_string  # prefix
+        self.counter_suffix = suffix     # suffix
         self.counter = 0
 
-    def update_text(self, counter_text, counter_value=0):
+    def update_text(self, prefix, suffix, counter_value=0):
         source = S.obs_get_source_by_name(self.source_name)
         settings = S.obs_data_create()
         if counter_value == 1:
@@ -21,8 +22,7 @@ class TextContent:
         if isinstance(counter_value, str):
             self.counter = int(counter_value)
 
-        self.text_string = f"{counter_text}{self.counter}"
-
+        self.text_string = f"{prefix}{self.counter}{suffix}"
         S.obs_data_set_string(settings, "text", self.text_string)
         S.obs_source_update(source, settings)
         S.obs_data_release(settings)
@@ -31,16 +31,16 @@ class TextContent:
 
 class Driver(TextContent):
     def increment(self):
-        self.update_text(self.counter_text, 1)
+        self.update_text(self.counter_text, self.counter_suffix, 1)
 
     def decrement(self):
-        self.update_text(self.counter_text, -1)
+        self.update_text(self.counter_text, self.counter_suffix, -1)
 
     def reset(self):
-        self.update_text(self.counter_text, 0)
+        self.update_text(self.counter_text, self.counter_suffix, 0)
 
     def do_custom(self, val):
-        self.update_text(self.counter_text, str(val))
+        self.update_text(self.counter_text, self.counter_suffix, str(val))
 
 
 class Hotkey:
@@ -139,16 +139,22 @@ def script_description():
 def script_update(settings):
     hotkeys_counter_1.source_name = S.obs_data_get_string(settings, "source1")
     hotkeys_counter_1.counter_text = S.obs_data_get_string(settings, "counter_text1")
+    hotkeys_counter_1.counter_suffix = S.obs_data_get_string(settings, "counter_suffix1")
 
     hotkeys_counter_2.source_name = S.obs_data_get_string(settings, "source2")
     hotkeys_counter_2.counter_text = S.obs_data_get_string(settings, "counter_text2")
+    hotkeys_counter_2.counter_suffix = S.obs_data_get_string(settings, "counter_suffix2")
 
 
 def script_properties():
     props = S.obs_properties_create()
 
+    # Counter 1 properties
     S.obs_properties_add_text(
-        props, "counter_text1", "[1]Set counter text", S.OBS_TEXT_DEFAULT
+        props, "counter_text1", "[1] Set counter prefix", S.OBS_TEXT_DEFAULT
+    )
+    S.obs_properties_add_text(
+        props, "counter_suffix1", "[1] Set counter suffix", S.OBS_TEXT_DEFAULT
     )
     p = S.obs_properties_add_int(
         props, "counter_1", "Set custom value", -999999, 999999, 1
@@ -162,8 +168,12 @@ def script_properties():
         S.OBS_COMBO_FORMAT_STRING,
     )
 
+    # Counter 2 properties
     S.obs_properties_add_text(
-        props, "counter_text2", "[2]Set counter text", S.OBS_TEXT_DEFAULT
+        props, "counter_text2", "[2] Set counter prefix", S.OBS_TEXT_DEFAULT
+    )
+    S.obs_properties_add_text(
+        props, "counter_suffix2", "[2] Set counter suffix", S.OBS_TEXT_DEFAULT
     )
     p = S.obs_properties_add_int(
         props, "counter_2", "Set custom value", -999999, 999999, 1
